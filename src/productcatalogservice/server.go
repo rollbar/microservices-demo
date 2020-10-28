@@ -76,14 +76,16 @@ func init() {
 }
 
 func main() {
+//     currently gitSha value is comming up empty on the SDK
+    gitSha := os.Getenv("GIT_SHA")
     rollbar.SetToken(os.Getenv("GOROLLBARTOKEN"))
   	rollbar.SetEnvironment("production")                 // defaults to "development"
-  	rollbar.SetCodeVersion("v2")                         // optional Git hash/branch/tag (required for GitHub integration)
+  	rollbar.SetCodeVersion(gitSha)                         // optional Git hash/branch/tag (required for GitHub integration)
   	rollbar.SetServerHost("web.1")                       // optional override; defaults to hostname
   	rollbar.SetServerRoot("github.com/heroku/myproject") // path of project (required for GitHub integration and non-project stacktrace collapsing)
 
-  	rollbar.Info("I am erroring critical")
-  	rollbar.WrapAndWait(doSomething)
+//   	rollbar.Info("I am erroring critical")
+//   	rollbar.WrapAndWait(doSomething)
 
 	if os.Getenv("DISABLE_TRACING") == "" {
 		log.Info("Tracing enabled.")
@@ -295,6 +297,8 @@ func (p *productCatalog) GetProduct(ctx context.Context, req *pb.GetProductReque
 		}
 	}
 	if found == nil {
+	    rollbar.Info(req.Id)
+        rollbar.WrapAndWait(doSomething)
 		return nil, status.Errorf(codes.NotFound, "no product with ID %s", req.Id)
 	}
 	return found, nil
