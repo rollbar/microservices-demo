@@ -24,9 +24,9 @@ build:
     context: src/emailservice
   - image: productcatalogservice
     context: src/productcatalogservice
-#    docker:
-#      buildArgs:
-#        GIT_SHA_ARG: "{{.GIT_SHA}}"
+    docker:
+      buildArgs:
+        GIT_SHA_ARG: "{{.GIT_SHA}}"
   - image: recommendationservice
     context: src/recommendationservice
   - image: shippingservice
