@@ -41,7 +41,7 @@ COPY --from=builder /usr/src/app/node_modules ./node_modules
 
 ARG GIT_SHA_ARG="UNKNOWN"
 ENV GIT_SHA=${GIT_SHA_ARG}
-RUN echo "hello ${GIT_SHA}!!!"
+#RUN echo "hello ${GIT_SHA}!!!"
 
 COPY . .
 

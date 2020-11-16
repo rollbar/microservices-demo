@@ -19,15 +19,16 @@ from locust import HttpLocust, TaskSet, between
 import credentials
 
 import rollbar
-rollbar.init(credentials.POST_SERVER_ITEM_ACCESS_TOKEN, 'production')  # access_token, environment
+rollbar.init(credentials.ROLLBAR_ACCESS_TOKEN, ROLLBAR_ENVIRONMENT='production', ROLLBAR_CODE_VERSION='1234',
+             server={'root': '/usr/src/app/'})
 
-try:
-    main_app_loop()
-except IOError:
-    rollbar.report_message('Got an IOError in the main loop', 'warning')
-except:
-    # catch-all
-    rollbar.report_exc_info()
+# try:
+#     main_app_loop()
+# except IOError:
+#     rollbar.report_message('Got an IOError in the main loop', 'warning')
+# except:
+#     # catch-all
+#     rollbar.report_exc_info()
     # equivalent to rollbar.report_exc_info(sys.exc_info())
 
 products = [

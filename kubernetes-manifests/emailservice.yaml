@@ -32,10 +32,10 @@ spec:
         ports:
         - containerPort: 8080
         env:
-        - name: PYTHON_ACCESS_TOKEN
+        - name: ROLLBAR_ACCESS_TOKEN
           valueFrom:
             secretKeyRef:
-              name: test-secret-service
+              name: secret-email-service
               key: PYTHON_EMAIL_SERVICE_ACCESS_TOKEN
         - name: PORT
           value: "8080"

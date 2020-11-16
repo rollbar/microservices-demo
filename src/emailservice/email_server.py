@@ -42,7 +42,9 @@ from logger import getJSONLogger
 logger = getJSONLogger('emailservice-server')
 
 import rollbar
-rollbar.init(os.environ.get('PYTHON_ACCESS_TOKEN'), 'production', code_version=os.environ.get('GIT_SHA'),
+ROLLBAR_CODE_VERSION=os.environ.get('GIT_SHA')
+ROLLBAR_ENVIRONMENT='production'
+rollbar.init(os.environ.get('ROLLBAR_ACCESS_TOKEN'), ROLLBAR_ENVIRONMENT, code_version=ROLLBAR_CODE_VERSION,
              server={'root': '/usr/src/app/'})
 
 # try:
@@ -116,8 +118,8 @@ class EmailService(BaseEmailService):
 class DummyEmailService(BaseEmailService):
   def SendOrderConfirmation(self, request, context):
     # this will send a message to Rollbar every time you place an order using the email below
-    if request.email == 'anothererror@gmail.com':
-      rollbar.report_message('nao tenho medo porra', 'info')
+    if request.email == 'other@gmail.com':
+      rollbar.report_message('this is not a valid email', 'info')
     logger.info('A request to send order confirmation email to {} has been received.'.format(request.email))
     return demo_pb2.Empty()
 
