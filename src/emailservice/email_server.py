@@ -42,8 +42,10 @@ from logger import getJSONLogger
 logger = getJSONLogger('emailservice-server')
 
 import rollbar
-code_version = os.environ.get('ROLLBAR_CODE_VERSION')
-environment = os.environ.get('ROLLBAR_ENVIRONMENT')
+ROLLBAR_CODE_VERSION=os.environ.get('GIT_SHA')
+ROLLBAR_ENVIRONMENT='production'
+code_version = os.environ.get('ROLLBAR_CODE_VERSION') or ROLLBAR_CODE_VERSION
+environment = os.environ.get('ROLLBAR_ENVIRONMENT') or ROLLBAR_ENVIRONMENT
 rollbar.init(os.environ.get('ROLLBAR_ACCESS_TOKEN'), environment, code_version=code_version,
              server={'root': '/usr/src/app/'})
 
