@@ -15,7 +15,9 @@
 // GIT_COMMIT_HASH=$(git rev-parse HEAD | cut -c1-5) && echo $x
 var gitSha = process.env.GIT_SHA
 var Rollbar = require('rollbar');
-var rollbarToken = process.env.ROLLBARTOKEN
+var rollbarToken = process.env.ROLLBAR_ACCESS_TOKEN
+var codeVersion = process.env.ROLLBAR_CODE_VERSION | gitSha
+var environment = process.env.ROLLBAR_ENVIRONMENT
 var rollbar = new Rollbar({
   accessToken: rollbarToken,
   captureUncaught: true,
@@ -24,11 +26,11 @@ var rollbar = new Rollbar({
 
 rollbar.configure({
   payload: {
-      environment: "production",
+      environment: environment,
       client: {
         javascript: {
           source_map_enabled: true,
-          code_version: gitSha,
+          code_version: codeVersion,
           guess_uncaught_frames: true
         }
       },

@@ -34,7 +34,7 @@ spec:
         env:
         - name: PORT
           value: "50051"
-        - name: ROLLBARTOKEN
+        - name: ROLLBAR_ACCESS_TOKEN
           valueFrom:
            secretKeyRef:
              name: secret-payment-service
