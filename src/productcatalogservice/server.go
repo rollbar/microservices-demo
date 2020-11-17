@@ -76,14 +76,13 @@ func init() {
 }
 
 func main() {
-//     currently gitSha value is comming up empty on the SDK
-//     environment := os.Getenv.ROLLBAR_ENVIRONMENT;
-//     codeVersion := os.Getenv.ROLLBAR_CODE_VERSION;
-    environment := "production"
-    ROLLBAR_CODE_VERSION := os.Getenv("GIT_SHA")
+
+    environment := os.Getenv("ROLLBAR_ENVIRONMENT");
+    codeVersion := os.Getenv("ROLLBAR_CODE_VERSION");
+//     ROLLBAR_CODE_VERSION := os.Getenv("GIT_SHA")
     rollbar.SetToken(os.Getenv("ROLLBAR_ACCESS_TOKEN"))
   	rollbar.SetEnvironment(environment)                 // defaults to "development"
-  	rollbar.SetCodeVersion(ROLLBAR_CODE_VERSION)        // optional Git hash/branch/tag (required for GitHub integration)
+  	rollbar.SetCodeVersion(codeVersion)                 // optional Git hash/branch/tag (required for GitHub integration)
   	rollbar.SetServerRoot("github.com/heroku/myproject") // path of project (required for GitHub integration and non-project stacktrace collapsing)
 
 //   	rollbar.Info("I am erroring critical")
