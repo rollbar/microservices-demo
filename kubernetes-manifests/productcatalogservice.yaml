@@ -32,7 +32,7 @@ spec:
         ports:
         - containerPort: 3550
         env:
-        - name: GOROLLBARTOKEN
+        - name: ROLLBAR_ACCESS_TOKEN
           valueFrom:
             secretKeyRef:
               name: secret-product-catalog-service

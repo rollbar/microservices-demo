@@ -34,6 +34,10 @@ RUN GRPC_HEALTH_PROBE_VERSION=v0.2.0 && \
     chmod +x /bin/grpc_health_probe
 WORKDIR /productcatalogservice
 COPY --from=builder /productcatalogservice ./server
+
+ARG GIT_SHA_ARG="UNKNOWN"
+ENV GIT_SHA=${GIT_SHA_ARG}
+
 COPY products.json .
 EXPOSE 3550
 ENTRYPOINT ["/productcatalogservice/server"]
